@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" /><link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var baseurl = "https://localhost:44357/api/workers";
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", baseurl + "?startDate=2022,01,01&endDate=2023,01,01", true);
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    var workleaves = JSON.parse(xmlhttp.responseText);
+                    $("#workleavesDataTable").DataTable({
+                        data: workleaves,
+                        "columns": [
+                            { "data": "WorkerName" },
+                            { "data": "ManagerName" },
+                            { "data": "WorkleaveStartDate" },
+                            { "data": "WorkleaveEndDate" },
+                            { "data": "WorkleaveName" },
+                            { "data": "Status" },
+                            { "data": "DaysWithWeekends" },
+                            { "data": "Span" }
+                        ]
+                    });
+                }
+            }
+            xmlhttp.send();
+        });
+    </script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Astrafox", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Urlopy", "WorkleavesTable", "Home", new { area = "" }, null)</li>
+                        @*@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                        <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, null)</li>*@
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - AstraFox</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿<h1>Urlopy</h1>
+
+<h2 style="color:purple">Witaj na stronie "Urlopy". Tabelka zawiera wszystkie informacje na temat urlopów dostępnych w obecnym roku.</h2>
+
+<table id="workleavesDataTable" class="display" style="width:100%">
+    <thead>
+        <tr>
+            <th>Worker Name</th>
+            <th>Manager Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Days</th>
+            <th>Span</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Worker Name</th>
+            <th>Manager Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Days</th>
+            <th>Span</th>
+        </tr>
+    </tfoot>
+</table>
+<button type="button" class="excelExport" onclick="location.href='@Url.Action("WriteDataToExcel", "Home")'">
+    Export Excel
+</button>
